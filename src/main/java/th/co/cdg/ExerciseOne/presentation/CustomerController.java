@@ -95,7 +95,7 @@ public class CustomerController {
     }
 
     // ---- Service สำหรับลบข้อมูล Customer ตาม Id ---- //
-    @PutMapping(value = "delete-customer/{id}")
+    @DeleteMapping(value = "delete-customer/{id}")
     public ResponseEntity<String> deleteCustomerController(@PathVariable(name = "id") long id) {
         if (areCustomerExist(id)) {
             customers.removeIf(customer -> customer.getId().equals(id));
