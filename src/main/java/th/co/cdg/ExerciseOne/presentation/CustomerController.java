@@ -43,6 +43,24 @@ public class CustomerController {
     }
 
     // ---- Service สำหรับข้อมูลตาม Id ---- //
+    @GetMapping(value = "get-customer/{id}")
+    public ResponseEntity<Customer> getCustomerByIdController(@PathVariable(name = "id") long id){
+        Customer customer = customers
+                .stream()
+                .filter(existedCustomer -> existedCustomer.getId().equals(id))
+                .findAny()
+                .orElse(null);
+
+        if (customer != null) {
+            return ResponseEntity
+                    .ok()
+                    .body(customer);
+        } else {
+            return ResponseEntity
+                    .noContent()
+                    .build();
+        }
+    }
 
     // ---- Service สำหรับเพิ่มข้อมูล Customer ---- //
     @PostMapping(value = "add-customer")
@@ -96,7 +114,7 @@ public class CustomerController {
 
     // ---- Service สำหรับลบข้อมูล Customer ตาม Id ---- //
     @DeleteMapping(value = "delete-customer/{id}")
-    public ResponseEntity<String> deleteCustomerController(@PathVariable(name = "id") long id) {
+    public ResponseEntity<String> deleteCustomerByIdController(@PathVariable(name = "id") long id) {
         if (areCustomerExist(id)) {
             customers.removeIf(customer -> customer.getId().equals(id));
             return ResponseEntity
