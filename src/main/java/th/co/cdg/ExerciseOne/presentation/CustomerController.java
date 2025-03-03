@@ -60,6 +60,39 @@ public class CustomerController {
     }
 
     // ---- Service สำหรับอัพเดตข้อมูล Customer ---- //
+    @PutMapping(value = "update-customer")
+    public ResponseEntity<String> updateCustomerController(@RequestBody Customer customer) {
+
+        if (null == customer.getId()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Cannot update customer: field 'id' is missing.");
+        }
+
+        Customer queryCustomer = customers
+                .stream()
+                .filter(existedCustomer -> customer.getId().equals(existedCustomer.getId()))
+                .findAny()
+                .orElse(null);
+        if (null == queryCustomer) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Cannot update customer: Customer does not exist.");
+        }
+
+        if (null != customer.getName()) queryCustomer.setName(customer.getName());
+        if (null != customer.getSurname()) queryCustomer.setSurname(customer.getSurname());
+        if (null != customer.getAddress()) queryCustomer.setAddress(customer.getAddress());
+        if (null != customer.getAge()) queryCustomer.setAge(customer.getAge());
+        if (null != customer.getTel()) queryCustomer.setTel(customer.getTel());
+
+        deleteCustomer(customer);
+        addCustomer(queryCustomer);
+
+        return ResponseEntity
+                .ok()
+                .body("Customer successfully updated");
+    }
 
     // ---- Service สำหรับลบข้อมูล Customer ตาม Id ---- //
     @PutMapping(value = "delete-customer/{id}")
