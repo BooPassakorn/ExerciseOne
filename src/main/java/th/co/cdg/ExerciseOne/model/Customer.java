@@ -6,7 +6,7 @@ public class Customer {
     private String name;
     private String surname;
     private String address;
-    private long age;
+    private Long age;
     private String tel;
 
     public Long getId() {
@@ -41,11 +41,11 @@ public class Customer {
         this.address = address;
     }
 
-    public long getAge() {
+    public Long getAge() {
         return age;
     }
 
-    public void setAge(long age) {
+    public void setAge(Long age) {
         this.age = age;
     }
 
