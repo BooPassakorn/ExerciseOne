@@ -128,5 +128,17 @@ public class CustomerController {
     }
 
     // ---- Service สำหรับลบข้อมูล Customer ทั้งหมด ---- //
-
+    @DeleteMapping(value = "delete-all-customer")
+    public ResponseEntity<String> deleteAllCustomerController() {
+        if (!customers.isEmpty()) {
+            customers.clear();
+            return ResponseEntity
+                    .ok()
+                    .body("All customer successfully deleted");
+        } else {
+            return ResponseEntity
+                    .badRequest()
+                    .body("No customer found");
+        }
+    }
 }
