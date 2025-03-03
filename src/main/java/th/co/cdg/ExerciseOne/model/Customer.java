@@ -2,18 +2,18 @@ package th.co.cdg.ExerciseOne.model;
 
 public class Customer {
 
-    private long id;
+    private Long id;
     private String name;
     private String surname;
     private String address;
     private long age;
     private String tel;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

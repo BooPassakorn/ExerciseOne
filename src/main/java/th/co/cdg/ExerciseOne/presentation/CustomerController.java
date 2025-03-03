@@ -1,10 +1,7 @@
 package th.co.cdg.ExerciseOne.presentation;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import th.co.cdg.ExerciseOne.model.Customer;
 
 import java.util.ArrayList;
@@ -57,6 +54,19 @@ public class CustomerController {
     // ---- Service สำหรับอัพเดตข้อมูล Customer ---- //
 
     // ---- Service สำหรับลบข้อมูล Customer ตาม Id ---- //
+    @PutMapping(value = "delete-customer/{id}")
+    public ResponseEntity<String> deleteCustomerController(@PathVariable(name = "id") long id) {
+        if (areCustomerExist(id)) {
+            customers.removeIf(customer -> customer.getId().equals(id));
+            return ResponseEntity
+                    .ok()
+                    .body("Customer successfully deleted");
+        } else {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Customer does not exist");
+        }
+    }
 
     // ---- Service สำหรับลบข้อมูล Customer ทั้งหมด ---- //
 
