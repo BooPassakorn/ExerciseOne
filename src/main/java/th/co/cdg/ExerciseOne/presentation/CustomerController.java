@@ -19,6 +19,14 @@ public class CustomerController {
                 .anyMatch(existedCustomer -> id.equals(existedCustomer.getId()));
     }
 
+    private void deleteCustomer(Customer customer){
+        customers.removeIf(existedCustomer -> customer.getId().equals(existedCustomer.getId()));
+    }
+
+    private void addCustomer (Customer customer){
+        customers.add(customer);
+    }
+
     // ---- Service สำหรับข้อมูล Customer ทั้งหมด ---- //
     @GetMapping(value = "get-all-customer")
     public ResponseEntity<List<Customer>> getAllCustomerController() {
